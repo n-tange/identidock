@@ -16,12 +16,13 @@ if [ $ERR -eq 0 ]; then
   if [ $CODE -eq 200 ]; then
     echo "Test passed - Tagging"
     HASH=$(git rev-parse --short HEAD)
-    sudo docker tag jenkins_identidock mydockerreg:5000/identidock:$HASH
-    sudo docker tag jenkins_identidock mydockerreg:5000/identidock:newest
+    sudo docker tag jenkins_identidock 192.168.33.13/ntange/identidock:$HASH
+    sudo docker tag jenkins_identidock 192.168.33.13/ntange/identidock:newest
     echo "Pushing"
-    #localのDockerレジストリ（mydockerreg）へ
-    sudo docker push mydockerreg:5000/identidock:$HASH
-    sudo docker push mydockerreg:5000/identidock:newest
+    #localのDockerレジストリへ
+    sudo docker login 192.168.33.13 -u ntange -p Ntange123
+    sudo docker push 192.168.33.13/ntange/identidock:$HASH
+    sudo docker push 192.168.33.13/ntange/identidock:newest
 
   else
     echo "Site returned " $CODE
